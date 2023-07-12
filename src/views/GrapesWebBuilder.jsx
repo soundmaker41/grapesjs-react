@@ -28,6 +28,7 @@ import grapesTooltipPlugin from "grapesjs-tooltip";
 import grapesTUIImageEditorPlugin from "grapesjs-tui-image-editor";
 import grapesTypedPlugin from "grapesjs-typed";
 import grapesStyleBGPlugin from "grapesjs-style-bg";
+import grapesCKEditorPlugin from "grapesjs-plugin-ckeditor";
 import { readImgs } from "./../external/exportImages.js"
 import {testImage} from "./../external/testImageInBase64.js";
 
@@ -421,7 +422,26 @@ export function GrapesWebBuilder() {
                 },
                 (editor) => {
                     return grapesStyleBGPlugin(editor, {
-
+                        
+                    })
+                },
+                (editor) => {
+                    return grapesCKEditorPlugin(editor, {
+                        options:{
+                            startupFocus: true,
+                            extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
+                            allowedContent: true, // Disable auto-formatting, class removing, etc.
+                            enterMode: 2, // CKEDITOR.ENTER_BR,
+                            extraPlugins: 'sharedspace,justify,colorbutton,panelbutton,font',
+                            // toolbar: [
+                            //     { name: 'styles', items: ['Font', 'FontSize' ] },
+                            //     ['Bold', 'Italic', 'Underline', 'Strike'],
+                            //     {name: 'paragraph', items : [ 'NumberedList', 'BulletedList']},
+                            //     {name: 'links', items: ['Link', 'Unlink']},
+                            //     {name: 'colors', items: [ 'TextColor', 'BGColor' ]},
+                            // ],
+                        }
+                        
                     })
                 }
             ]

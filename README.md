@@ -64,6 +64,7 @@ npm i grapesjs-typed
 npm i grapesjs-blocks-basic 
 npm i grapesjs-component-countdown grapesjs-custom-code grapesjs-parser-postcss grapesjs-plugin-export grapesjs-plugin-forms grapesjs-preset-webpage grapesjs-style-bg grapesjs-tabs grapesjs-tooltip grapesjs-touch grapesjs-tui-image-editor
 npm i grapesjs-tabs
+npm i grapesjs-plugin-ckeditor
 
 //Demo web page
 npm i grapesjs-preset-webpage
