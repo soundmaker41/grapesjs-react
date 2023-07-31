@@ -64,8 +64,18 @@ npm i grapesjs-typed
 npm i grapesjs-blocks-basic 
 npm i grapesjs-component-countdown grapesjs-custom-code grapesjs-parser-postcss grapesjs-plugin-export grapesjs-plugin-forms grapesjs-preset-webpage grapesjs-style-bg grapesjs-tabs grapesjs-tooltip grapesjs-touch grapesjs-tui-image-editor
 npm i grapesjs-tabs
+
+//CKEditor 4 plugin
 npm i grapesjs-plugin-ckeditor
+
+//CKEditor 5 plugin
+
 
 //Demo web page
 npm i grapesjs-preset-webpage
+
+
+//Prosemirror packages
+npm i prosemirror-state prosemirror-view prosemirror-model prosemirror-schema-basic prosemirror-schema-list prosemirror-example-setup
+
 ```

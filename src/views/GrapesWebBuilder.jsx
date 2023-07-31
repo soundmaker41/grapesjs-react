@@ -29,8 +29,12 @@ import grapesTUIImageEditorPlugin from "grapesjs-tui-image-editor";
 import grapesTypedPlugin from "grapesjs-typed";
 import grapesStyleBGPlugin from "grapesjs-style-bg";
 import grapesCKEditorPlugin from "grapesjs-plugin-ckeditor";
+import grapesCKEditor4Plugin from "../external/CustomRTE/CKEditor4Plugin";
+import grapesCKEditor5Plugin from "../external/CustomRTE/CKEditor5Plugin";
 import { readImgs } from "./../external/exportImages.js"
 import {testImage} from "./../external/testImageInBase64.js";
+
+import customRTE from "../external/CustomRTE/CustomRTEFunction.js";
 
 const ASSET_IMAGE_PATH = "../assets/img";
 
@@ -39,6 +43,7 @@ export function GrapesWebBuilder() {
     const editorRef = useRef(null);
 
     useEffect(() => {
+        const customRTEFlag = false;
         grapesjs.init({
             container: editorRef.current,
             height: "100vh",
@@ -48,10 +53,7 @@ export function GrapesWebBuilder() {
             assetManager: {
                 embedAsBase64: true,
                 assets: [
-                    ASSET_IMAGE_PATH + "/team1.jpg",
-                    ASSET_IMAGE_PATH + "/team2.jpg",
-                    ASSET_IMAGE_PATH + "/team3.jpg"
-
+                    //require(ASSET_IMAGE_PATH + "/team1.jpg")
                 ]
             },
             selectorManager: { componentFirst: true },
@@ -425,31 +427,79 @@ export function GrapesWebBuilder() {
                         
                     })
                 },
-                (editor) => {
-                    return grapesCKEditorPlugin(editor, {
-                        options:{
-                            startupFocus: true,
-                            extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
-                            allowedContent: true, // Disable auto-formatting, class removing, etc.
-                            enterMode: 2, // CKEDITOR.ENTER_BR,
-                            extraPlugins: 'sharedspace,justify,colorbutton,panelbutton,font',
-                            // toolbar: [
-                            //     { name: 'styles', items: ['Font', 'FontSize' ] },
-                            //     ['Bold', 'Italic', 'Underline', 'Strike'],
-                            //     {name: 'paragraph', items : [ 'NumberedList', 'BulletedList']},
-                            //     {name: 'links', items: ['Link', 'Unlink']},
-                            //     {name: 'colors', items: [ 'TextColor', 'BGColor' ]},
-                            // ],
-                        }
+                customRTEFlag ? customRTE : (editor) => {
+                    // return grapesCKEditor4Plugin(editor, {
+                    //     options:{
+                    //         startupFocus: true,
+                    //         extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
+                    //         allowedContent: true, // Disable auto-formatting, class removing, etc.
+                    //         enterMode: 2, // CKEDITOR.ENTER_BR,
+                    //         extraPlugins: 'sharedspace,justify,colorbutton,panelbutton,font',
+                    //         // toolbar: [
+                    //         //     { name: 'styles', items: ['Font', 'FontSize' ] },
+                    //         //     ['Bold', 'Italic', 'Underline', 'Strike'],
+                    //         //     {name: 'paragraph', items : [ 'NumberedList', 'BulletedList']},
+                    //         //     {name: 'links', items: ['Link', 'Unlink']},
+                    //         //     {name: 'colors', items: [ 'TextColor', 'BGColor' ]},
+                    //         // ],
+                    //     }
                         
-                    })
-                }
+                    // })
+                    
+
+                    return grapesCKEditor5Plugin(editor, {
+                        options: {
+                            trackChanges: {},
+                            toolbar: {
+                              items: [
+                                'heading',
+                                '|',
+                                'fontColor',
+                                'fontSize',
+                                'fontFamily',
+                                'fontBackgroundColor',
+                                'alignment',
+                                'bold',
+                                'italic',
+                                'underline',
+                                'strikethrough',
+                                'link',
+                                'bulletedList',
+                                'numberedList',
+                                'horizontalLine',
+                                '|',
+                                'outdent',
+                                'indent',
+                                '|',
+                                'blockQuote',
+                                'insertTable',
+                                '|',
+                                'undo',
+                                'redo',
+                                'about'
+                              ]
+                            },
+                            language: 'en',
+                            table: {
+                              contentToolbar: [
+                                'tableColumn',
+                                'tableRow',
+                                'mergeTableCells',
+                                'tableCellProperties',
+                                'tableProperties'
+                              ]
+                            },
+                            licenseKey: ''
+                          }
+                    });
+                },
+                
             ]
         })
     }, []);
 
 
     return (
-        <div ref={editorRef}></div>
+        <><div ref={editorRef}></div><div id="pm-editor"></div></>
     );
 }
